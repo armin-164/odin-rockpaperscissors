@@ -13,32 +13,39 @@ function getComputerChoice() {
 
 function playRound (playerSelection, computerSelection) {
     
-    if (playerSelection == computerSelection) {                                           
-        console.log( "It's a draw");
+    const draw = playerSelection === computerSelection;
+    const playerWinsRound = 
+        (playerSelection === "ROCK" && computerSelection === "SCISSORS")||                  
+        (playerSelection === "SCISSORS" && computerSelection === "PAPER")||               
+        (playerSelection === "PAPER" && computerSelection === "ROCK");
+    
+    if (draw) {             
+        console.log("draw");                              
+      resultcontainer.innerText = "The current score stands at" + "\n" + "Player: " + playerScore + "\n" + "Computer: " + computerScore;
     }
 
-    else if (
-        (playerSelection == "ROCK" && computerSelection == "SCISSORS")||                  
-        (playerSelection == "SCISSORS" && computerSelection == "PAPER")||               
-        (playerSelection == "PAPER" && computerSelection == "ROCK") )                     
-        {
+    else if (playerWinsRound)  {     
             playerScore++;
             console.log( "Player Wins");
-             resultcontainer.innerText = "The current score stands at" + "\n" + "Player: " + playerScore + "\n" + "Computer: " + computerScore;
+            resultcontainer.innerText = "The current score stands at" + "\n" + "Player: " + playerScore + "\n" + "Computer: " + computerScore;
         }
         
+        // Else statement for when computer wins
         else {
             computerScore++;
             console.log( "Computer Wins");
-             resultcontainer.innerText = "The current score stands at" + "\n" + "Player: " + playerScore + "\n" + "Computer: " + computerScore;
+            resultcontainer.innerText = "The current score stands at" + "\n" + "Player: " + playerScore + "\n" + "Computer: " + computerScore;
         }
-        
-        if (playerScore === 5 && playerScore > computerScore) {
+
+        const playerHasWon = playerScore === 5 && playerScore > computerScore;
+        const computerHasWon = computerScore === 5 && playerScore < computerScore;
+
+        if (playerHasWon) {
             console.log("PLAYER WON");
             return resultcontainer.innerText = `PLAYER WINS with ${playerScore} pts`;
         }
     
-        else if (computerScore === 5 && playerScore < computerScore) {
+        else if (computerHasWon) {
             console.log("COMPUTER WON");
             return resultcontainer.innerText = `COMPUTER WINS with ${computerScore} pts`;
         }
